@@ -1,7 +1,9 @@
 const express = require('express')
-const mongoose = require('mongoose')
+
 const Product = require('./models/productModel')
 const app = express()
+
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -80,14 +82,9 @@ app.delete('/products/:id', async(req, res) =>{
     }
 })
 
-mongoose.set("strictQuery", false)
-mongoose.
-connect('mongodb://127.0.0.1:27017')
-.then(() => {
-    console.log('connected to MongoDB')
-    app.listen(3000, ()=> {
-        console.log(`Node API app is running on port 3000`)
-    });
-}).catch((error) => {
-    console.log(error)
+var connect_mongo = require('./dbclient.js');
+connect_mongo();
+
+app.listen(3000, ()=> {
+    console.log(`Node API app is running on port 3000`)
 })
