@@ -2,7 +2,7 @@ const express = require('express')
 
 const Product = require('./models/productModel')
 const app = express()
-
+const mongoose = require('mongoose');
 
 
 app.use(express.json())
@@ -82,12 +82,28 @@ app.delete('/products/:id', async(req, res) =>{
     }
 })
 
-var connect_mongo = require('./dbclient.js');
-connect_mongo();
 
-console.log("Now starting the server...")
-app.listen(3000, ()=> {
-    console.log(`Node API app is running on port 3000`)
-})
+var config = require('./configure');
+conn_string = config.mongo_db.connection_string
+console.log("Connecting to %s", conn_string)
+mongoose.set("strictQuery", false)
 
-module.exports = app;
+async function start() {
+    try{
+        await mongoose.connect(conn_string);
+        console.log("Now starting the server...");
+
+        app.listen(3000, ()=> {
+        console.log(`Node API app is running on port 3000`)
+        })
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+start();
+
+exports.app = app;
+exports.start = start;

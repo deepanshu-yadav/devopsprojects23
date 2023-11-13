@@ -1,10 +1,10 @@
 // test.js
 const { expect } = require('chai');
 const supertest = require('supertest');
-const app = require('../server'); // Update the path accordingly
+const server_module = require('../server'); // Update the path accordingly
 const { default: mongoose } = require('mongoose');
 
-const request = supertest(app);
+const request = supertest(server_module.app);
 
 describe('CRUD Operations Test for Express Server', () => {
   let productId; // Will store the ID of the created product for later tests
@@ -27,7 +27,7 @@ describe('CRUD Operations Test for Express Server', () => {
     //await connectMongo();
     // const url = 'mongodb://127.0.0.1:27017'; // Change the connection URL and database name as needed
     // await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log("Starting the server....");
+    server_module.start();
   });
 
   after(async () => {
