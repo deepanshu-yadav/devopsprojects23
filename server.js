@@ -85,6 +85,7 @@ app.delete('/products/:id', async(req, res) =>{
 var connect_mongo = require('./dbclient.js');
 connect_mongo();
 
+console.log("Now starting the server...")
 app.listen(3000, ()=> {
     console.log(`Node API app is running on port 3000`)
 })

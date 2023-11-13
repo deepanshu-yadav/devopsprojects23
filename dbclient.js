@@ -6,9 +6,13 @@ conn_string = config.mongo_db.connection_string
 console.log("Connecting to %s", conn_string)
 mongoose.set("strictQuery", false)
 
-module.exports = function (connect_mongo) {
-mongoose.connect(conn_string).then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
-};
+var connect_mongo = async function(){
+    await mongoose.connect(conn_string);
+    console.log("MongoDB Connected...");
+    //mongoose.connect(conn_string).then(() => console.log("MongoDB Connected..."))
+    //.catch((err) => console.log(err));
+}
+
+module.exports = connect_mongo;
 
 
