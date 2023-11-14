@@ -1,91 +1,135 @@
+// const chai = require('chai');
+// const chaiHttp = require('chai-http');
+// const {app, start} = require('../app'); // Change this to the path where your app is located
+// const Product = require('../models/productModel');
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const { app, start } = require('../server'); // Replace with the actual file path
+// chai.use(chaiHttp);
+// const expect = chai.expect;
 
-const expect = chai.expect;
-chai.use(chaiHttp);
+// const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Start the server before running tests
-before(async () => {
-  await start();
-});
+// describe('API Tests', () => {
+//   before(async () => {
+//     // Perform setup tasks if needed
+//     await delay(5000);
+//   });
 
-// Close the server after running tests
-after(async () => {
-  // Close any connections, cleanup, etc.
-});
+//   after(async () => {
+//     // Perform teardown tasks if needed
+//   });
 
-describe('CRUD Operations', () => {
-  let productId;
+//   it('should return Hello NODE API', async () => {
+//     //await delay(3000); // 3 seconds delay
+//     console.log("requesting..");
+//     chai
+//       .request(app)
+//       .get('/')
+//       .end((err, res) => {
+//         expect(res).to.have.status(200);
+//         expect(res.text).to.equal('Hello NODE API');
+//       });
+//       console.log(res);
+//   });
 
-  // Test GET /products
-  it('should get all products', (done) => {
-    chai.request(app)
-      .get('/products')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('array');
-        done();
-      });
-  });
+//   // it('should return products', async () => {
+//   //   await delay(3000); // 3 seconds delay
+//   //   chai
+//   //     .request(app)
+//   //     .get('/products')
+//   //     .end((err, res) => {
+//   //       expect(res).to.have.status(200);
+//   //       expect(res.body).to.be.an('array');
+//   //     });
+//   // });
 
-  // Test POST /products
-  it('should create a new product', (done) => {
-    const newProduct = {
-      // Provide the necessary data for creating a product
-      // ...
-    };
+//   // it('should create a new product', async () => {
+//   //   await delay(3000); // 3 seconds delay
+//   //   const newProduct = {
+//   //     // Add your product data here
+//   //   };
 
-    chai.request(app)
-      .post('/products')
-      .send(newProduct)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('_id');
-        productId = res.body._id; // Save the product ID for later tests
-        done();
-      });
-  });
+//   //   chai
+//   //     .request(app)
+//   //     .post('/products')
+//   //     .send(newProduct)
+//   //     .end((err, res) => {
+//   //       expect(res).to.have.status(200);
+//   //       expect(res.body).to.be.an('object');
+//   //       // You can add more assertions based on your application logic
+//   //     });
+//   // });
 
-  // Test GET /products/:id
-  it('should get a specific product', (done) => {
-    chai.request(app)
-      .get(`/products/${productId}`)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
+//   // it('should update a product', async () => {
+//   //   await delay(3000); // 3 seconds delay
+//   //   const updatedProduct = {
+//   //     // Add your updated product data here
+//   //   };
 
-  // Test PUT /products/:id
-  it('should update a product', (done) => {
-    const updatedProduct = {
-      // Provide the necessary data for updating the product
-      // ...
-    };
+//   //   chai
+//   //     .request(app)
+//   //     .put('/products/:id') // replace :id with an actual product ID
+//   //     .send(updatedProduct)
+//   //     .end((err, res) => {
+//   //       expect(res).to.have.status(200);
+//   //       expect(res.body).to.be.an('object');
+//   //       // You can add more assertions based on your application logic
+//   //     });
+//   // });
 
-    chai.request(app)
-      .put(`/products/${productId}`)
-      .send(updatedProduct)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        // You can add more assertions for the updated data
-        done();
-      });
-  });
+//   // it('should delete a product', async () => {
+//   //   await delay(3000); // 3 seconds delay
+//   //   chai
+//   //     .request(app)
+//   //     .delete('/products/:id') // replace :id with an actual product ID
+//   //     .end((err, res) => {
+//   //       expect(res).to.have.status(200);
+//   //       expect(res.body).to.be.an('object');
+//   //       // You can add more assertions based on your application logic
+//   //     });
+//   // });
 
-  // Test DELETE /products/:id
-  it('should delete a product', (done) => {
-    chai.request(app)
-      .delete(`/products/${productId}`)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-});
+//   // // Add more test cases for other endpoints
+
+// });
+
+
+
+const chai = require( 'chai' )
+const chaiHttp = require( 'chai-http' )
+const expect = chai.expect
+chai.use( chaiHttp )
+
+
+describe( 'first test group', () => {
+   beforeEach( () => {
+      app = require( '../server' )
+   } ),
+
+   afterEach( ( done ) => {
+
+      // UPDATE DON'T CLOSE THE app
+
+      delete require.cache[require.resolve( '../server' )]
+      done()      
+   } ),
+
+   it( 'should respond to hello', ( done ) => {
+      chai.request( app )
+         .get( '/' )
+         .set( 'Connection', 'close' )
+         .end( ( err, res ) => {
+            expect( res.text ).to.be.equal( 'Hello NODE API' )
+            done()
+         } )
+   } ),
+
+   it( 'should respond to blog', ( done ) => {
+      chai.request( app )
+         .get( '/blog' )
+         .set( 'Connection', 'close' )
+         .end( ( err, res ) => {
+            expect( res.text ).to.be.equal( 'Hello Blog, My name is Deepanshu' )
+            done()
+         } )
+   } )
+} )
