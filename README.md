@@ -32,12 +32,26 @@ Use `npm test` to run the test.
 
 Push something in some branch raise a pull request in the repository. You will see the tests being executed in the actions section.
 
+Like this
+
+![alt text](images/actions.png)
+
 # Docker 
 
 Go to the docker directory `cd docker`. 
 
 Run the command `docker-compose build` and then `docker-compose up` . Exit by `docker-compose down` .
 
+To test this now run 
 
+```
+azureuser@deepanshudevops:~/exp/data$ curl -sX GET http://localhost:3000
+Hello NODE 
+```
+
+To send a POST request run this
+```
+ curl --header "Content-Type: application/json"   --request POST   --data '{"name":"xyz","quantity":"1", "price": "20"}'   http://localhost:3000/products
+```
 
 
