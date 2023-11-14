@@ -30,7 +30,7 @@ Use `npm test` to run the test.
 
 # CI with GitHub Actions
 
-Push something in some branch raise a pull request in the repository. You will the tests being executed.
+Push something in some branch raise a pull request in the repository. You will see the tests being executed in the actions section.
 
 # Docker 
 
