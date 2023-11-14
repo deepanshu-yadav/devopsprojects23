@@ -7,12 +7,12 @@ console.log("Connecting to %s", conn_string)
 mongoose.set("strictQuery", false)
 
 var connect_mongo = async function(){
-    await mongoose.connect(conn_string);
-    console.log("MongoDB Connected...");
-    //mongoose.connect(conn_string).then(() => console.log("MongoDB Connected..."))
-    //.catch((err) => console.log(err));
+    try{
+        return await mongoose.connect(conn_string);
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
 }
-
 module.exports = connect_mongo;
-
-
