@@ -20,8 +20,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Define environment variable for MongoDB connection string
-ENV MONGO_DB_CONNECTION_STRING=mongodb://mongo:27017
-
 # Wait for MongoDB to be ready before starting the app
 CMD [ "npm", "start"]
