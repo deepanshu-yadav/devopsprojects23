@@ -93,9 +93,7 @@ async function start() {
         await mongoose.connect(conn_string);
         console.log("Now starting the server...");
 
-        app.listen(3000, ()=> {
-        console.log(`Node API app is running on port 3000`)
-        })
+       
     }
     catch (error) {
         console.error(error);
@@ -103,7 +101,10 @@ async function start() {
     }
 }
 
-start();
+start().then(
+    app.listen(3000, ()=> {
+        console.log(`Node API app is running on port 3000`)
+        })
+)
 
-exports.app = app;
-exports.start = start;
+module.exports = app;
