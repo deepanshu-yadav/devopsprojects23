@@ -3,5 +3,3 @@ FROM mongo:latest
 
 # Expose the default MongoDB port
 EXPOSE 27017
-
-COMMAND ['--logpath', '/somewhere/specific.log']
