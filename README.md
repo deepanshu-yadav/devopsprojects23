@@ -23,5 +23,21 @@ After that run `node server.js`
 
 Now go to browser and type `localhost:3000` or `localhost:3000/blog`
  
+# Running the tests
+
+Use `npm test` to run the test.
+
+
+# CI with GitHub Actions
+
+Push something in some branch raise a pull request in the repository. You will the tests being executed.
+
+# Docker 
+
+Go to the docker directory `cd docker`. 
+
+Run the command `docker-compose build` and then `docker-compose up` . Exit by `docker-compose down` .
+
+
 
 
