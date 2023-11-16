@@ -7,10 +7,6 @@ WORKDIR /usr/src/app
 # Clone the Git repository
 RUN git clone https://github.com/deepanshu-yadav/devopsprojects23.git .
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
-
-
 # Install app dependencies
 RUN npm install
 
