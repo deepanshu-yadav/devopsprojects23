@@ -2,18 +2,14 @@ version: '3'
 
 services:
   mongodb:
-    build:
-      context: ./mongo
-      dockerfile: Dockerfile.mongodb
+    build: mongo
     ports:
       - "27017:27017"
     volumes:
       - ./data:/data/db
   
   nodejs-app:
-    build:
-      context: ./nodejs
-      dockerfile: Dockerfile.nodejs
+    build: nodejs
     ports:
       - "3000:3000"
     environment:
