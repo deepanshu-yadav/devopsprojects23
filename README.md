@@ -54,4 +54,6 @@ To send a POST request run this
  curl --header "Content-Type: application/json"   --request POST   --data '{"name":"xyz","quantity":"1", "price": "20"}'   http://localhost:3000/products
 ```
 
+An image with the name `pronoob007/devops:mongo` and `pronoob007/devops:latest` have already been published to docker hub. 
+
 

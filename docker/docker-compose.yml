@@ -3,7 +3,7 @@ version: '3'
 services:
   mongodb:
     build:
-      context: .
+      context: ./mongo
       dockerfile: Dockerfile.mongodb
     ports:
       - "27017:27017"
@@ -12,7 +12,7 @@ services:
   
   nodejs-app:
     build:
-      context: .
+      context: ./nodejs
       dockerfile: Dockerfile.nodejs
     ports:
       - "3000:3000"
