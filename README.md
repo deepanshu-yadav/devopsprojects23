@@ -89,4 +89,37 @@ Now we can push these images to DockerHub.
 
 ## Use Kubernetes 
 
+### Simple deployment 
 
+make sure you have run the  minikube cluster 
+
+```
+ minikube start  --memory 12000  --cpus 2
+```
+
+Use  `cd  kubernetes/simple`
+
+Then apply the following commands. 
+```
+    kubectl apply -f mongo-deployment.yaml
+    kubectl apply -f mongo-service.yaml
+    kubectl apply -f node-deploy.yaml
+    kubectl apply -f node-service.yaml
+```
+
+Now you can get the address for curl request 
+
+ minikube service nodejs-service --url 
+
+ For example I got `http://192.168.49.2:30707`
+
+ ```
+  curl http://192.168.49.2:30707
+ ```
+
+This shows out app is working as before. 
+
+```
+$ curl http://192.168.49.2:30707/products
+[{"_id":"655a6f85de87398cc510d2e0","name":"xyz","quantity":1,"price":20,"createdAt":"2023-11-19T20:26:45.763Z","updatedAt":"2023-11-19T20:26:45.763Z","__v":0}]
+```
