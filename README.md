@@ -54,6 +54,39 @@ To send a POST request run this
  curl --header "Content-Type: application/json"   --request POST   --data '{"name":"xyz","quantity":"1", "price": "20"}'   http://localhost:3000/products
 ```
 
-An image with the name `pronoob007/devops:mongo` and `pronoob007/devops:latest` have already been published to docker hub. 
+# Kubernetes 
+
+## Push To DockerHub
+We need to publish our containers to DockerHub. 
+
+For that follow the following steps 
+
+Build the mongo db conatiner. 
+```
+   cd mongo/
+   docker build --file Dockerfile . -t mongo:latest
+```
+
+```
+     cd nodejs/
+     docker build --file Dockerfile . -t nodejsapp:latest
+```
+
+Now login into your DockerHub account
+   using `docker login`
+
+Now tag these images to your id. Replace pronoob007 with whatever is your id. 
+```
+    docker tag nodejsapp:latest  pronoob007/nodejsapp:latest
+    docker tag mongo:latest  pronoob007/mongo:latest
+```
+
+Now we can push these images to DockerHub.
+```
+   docker push pronoob007/nodejsapp:latest
+   docker push pronoob007/mongo:latest
+```
+
+## Use Kubernetes 
 
 
