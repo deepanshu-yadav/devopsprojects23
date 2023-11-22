@@ -89,9 +89,14 @@ Now we can push these images to DockerHub.
 
 ## Use Kubernetes 
 
+We have deployed the kubernetes application in two ways. 
+
+1. Simple Kubenetes  
+2. Persistent Volume and Persistent Volume Claim.
+
 ### Simple deployment 
 
-make sure you have run the  minikube cluster 
+Make sure you have run the  minikube cluster 
 
 ```
  minikube start  --memory 12000  --cpus 2
@@ -107,9 +112,9 @@ Then apply the following commands.
     kubectl apply -f node-service.yaml
 ```
 
-Now you can get the address for curl request 
+Now you can get the address for curl request using 
 
- minikube service nodejs-service --url 
+ `minikube service nodejs-service --url `
 
  For example I got `http://192.168.49.2:30707`
 
@@ -123,3 +128,16 @@ This shows out app is working as before.
 $ curl http://192.168.49.2:30707/products
 [{"_id":"655a6f85de87398cc510d2e0","name":"xyz","quantity":1,"price":20,"createdAt":"2023-11-19T20:26:45.763Z","updatedAt":"2023-11-19T20:26:45.763Z","__v":0}]
 ```
+
+### Persistent Volume and Persistent Volume Claim
+
+```
+kubectl apply -f mongodb-pv.yaml
+kubectl apply -f mongo-db-pvc.yaml
+kubectl apply -f mongo-pv-deploy.yaml
+
+kubectl apply -f mongo-service.yaml
+kubectl apply -f node-deploy.yaml
+kubectl apply -f node-service.yaml
+```
+
