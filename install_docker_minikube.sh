@@ -40,3 +40,13 @@ echo manually run minikube start --vm-driver=docker --memory=6G --cni=calico to 
 
 sudo usermod -aG docker $USER
 newgrp docker
+
+# Install docker compose
+
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+
+chmod +x ~/.docker/cli-plugins/docker-compose
+
+# check that it has been installed or not 
+docker compose version

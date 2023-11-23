@@ -2,6 +2,7 @@
 
 # Local Setup
 
+Follow the following steps if you want to run this app on your local machine.
 ## Install Node and NPM
 
 Install npm from [here](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac)  and node  [here](https://nodejs.org/en/download/package-manager).
@@ -38,6 +39,7 @@ Like this
 
 # Docker 
 
+Install docker using  `./install_docker_minikube.sh`
 Go to the docker directory `cd docker`. 
 
 Run the command `docker-compose build` and then `docker-compose up` . Exit by `docker-compose down` .
@@ -55,6 +57,9 @@ To send a POST request run this
 ```
 
 # Kubernetes 
+
+Before using kubernetes we need to push these conatiners to DockerHub. Follow these steps in the next section to 
+publish your images to DockerHub. Can skip as it has already been done. 
 
 ## Push To DockerHub
 We need to publish our containers to DockerHub. 
@@ -89,6 +94,8 @@ Now we can push these images to DockerHub.
 
 ## Use Kubernetes 
 
+Install minikube using  `./install_docker_minikube.sh`
+
 We have deployed the kubernetes application in two ways. 
 
 1. Simple Kubenetes  
@@ -122,6 +129,12 @@ Now you can get the address for curl request using
   curl http://192.168.49.2:30707
  ```
 
+Add some data 
+
+```
+ curl --header "Content-Type: application/json"   --request POST   --data '{"name":"xyz","quantity":"1", "price": "20"}'   <address_you_get_above>/products
+```
+
 This shows out app is working as before. 
 
 ```
@@ -131,13 +144,24 @@ $ curl http://192.168.49.2:30707/products
 
 ### Persistent Volume and Persistent Volume Claim
 
+`cd kubernetes/pv_pvc` and runt he following to apply PVC and PVC claims. 
+
 ```
 kubectl apply -f mongodb-pv.yaml
 kubectl apply -f mongo-db-pvc.yaml
 kubectl apply -f mongo-pv-deploy.yaml
+```
 
+
+Now got to the earlier kubernetes directory `cd kubernetes/simple` assuming you are back in root directory of project.  
+
+Now run the following 
+```
 kubectl apply -f mongo-service.yaml
 kubectl apply -f node-deploy.yaml
 kubectl apply -f node-service.yaml
 ```
 
+Repeat the same procedure you did with kubernetes to verify the app is running. 
+
+# Vagrant and Ansible 
