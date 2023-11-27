@@ -169,3 +169,24 @@ kubectl apply -f node-service.yaml
 Repeat the same procedure you did with kubernetes to verify the app is running. 
 
 # Vagrant and Ansible 
+
+# Istio
+
+## Pre-requisites
+Make sure the cluster is running.
+Install istio using this [link](https://istio.io/latest/docs/setup/getting-started/#install).
+
+## Simple deployment
+
+```
+kubectl create ns node-mongo-istio
+kubectl label namespace node-mongo-istio istio-injection=enabled
+
+cd istio/simple
+
+kubectl apply -f mongo-deploy.yaml -n node-mongo-istio
+kubectl apply -f nodejsapp-deploy.yaml -n node-mongo-istio
+
+kubectl apply -f mongo-service.yaml -n node-mongo-istio
+kubectl apply -f node-service.yaml -n node-mongo-istio
+```
