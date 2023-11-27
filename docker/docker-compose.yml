@@ -11,8 +11,8 @@ services:
   nodejs-app:
     build: nodejs
       context: nodejs
-        args:
-            STATE: PRODUCTION
+      args:
+          STATE: PRODUCTION
     ports:
       - "3000:3000"
     environment:
