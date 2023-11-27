@@ -7,9 +7,6 @@ metadata:
     version: v1
 spec:
   replicas: 1
-  ports:
-    - port: 27017
-      name: mongo
   selector:
     matchLabels:
       app: mongo-db
