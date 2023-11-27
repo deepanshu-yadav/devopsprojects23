@@ -8,6 +8,13 @@ const mongoose = require('mongoose');
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+// Configuration
+var config = require('./configure');
+conn_string = config.mongo_db.connection_string
+console.log("Connecting to %s", conn_string)
+mongoose.set("strictQuery", false)
+STATE = config.state;
+
 //routes
 
 app.get('/', (req, res) => {
@@ -15,7 +22,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/blog', (req, res) => {
-    res.send('Hello Blog, My name is Deepanshu')
+    if (STATE == "DEVELOPMENT") {
+        res.send('Hello We are in Development state.');
+    }
+    else
+    {
+        res.send('Hello We are in Production state.');
+    }
 })
 
 app.get('/products', async(req, res) => {
@@ -83,10 +96,7 @@ app.delete('/products/:id', async(req, res) =>{
 })
 
 
-var config = require('./configure');
-conn_string = config.mongo_db.connection_string
-console.log("Connecting to %s", conn_string)
-mongoose.set("strictQuery", false)
+
 
 async function start() {
     try{

@@ -7,6 +7,8 @@ WORKDIR /usr/src/app
 # Clone the Git repository
 RUN git clone https://github.com/deepanshu-yadav/devopsprojects23.git .
 
+RUN -i "s/DEVELOPMENT/${STATE}/g" ./configure.js
+
 # Install app dependencies
 RUN npm install
 

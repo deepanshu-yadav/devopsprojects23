@@ -11,4 +11,6 @@ else {
 console.log("The string is \n");
 console.log(config.mongo_db.connection_string);
 
+const STATE = "DEVELOPMENT";
+config.state = STATE;
 module.exports = config;
