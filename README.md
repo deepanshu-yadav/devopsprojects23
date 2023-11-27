@@ -74,7 +74,9 @@ Build the mongo db conatiner.
 
 ```
      cd nodejs/
-     docker build --file Dockerfile . -t nodejsapp:latest
+     docker build --file Dockerfile . --build-arg STATE=DEVELOPMENT -t nodejsapp:development-latest
+
+     docker build --file Dockerfile . --build-arg STATE=PRODUCTION -t nodejsapp:prod-latest
 ```
 
 Now login into your DockerHub account
@@ -82,13 +84,15 @@ Now login into your DockerHub account
 
 Now tag these images to your id. Replace pronoob007 with whatever is your id. 
 ```
-    docker tag nodejsapp:latest  pronoob007/nodejsapp:latest
+    docker tag nodejsapp:development-latest  pronoob007/nodejsapp:development-latest
+    docker tag nodejsapp:prod-latest  pronoob007/nodejsapp:prod-latest
     docker tag mongo:latest  pronoob007/mongo:latest
 ```
 
 Now we can push these images to DockerHub.
 ```
-   docker push pronoob007/nodejsapp:latest
+   docker push pronoob007/nodejsapp:prod-latest
+   docker push pronoob007/nodejsapp:development-latest
    docker push pronoob007/mongo:latest
 ```
 
