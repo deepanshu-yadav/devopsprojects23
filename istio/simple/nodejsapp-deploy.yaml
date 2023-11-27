@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    app: nodejs
+    version: v1
+spec:
+  replicas: 1
+  ports:
+  - port: 3000
+    name: http
+  selector:
+    matchLabels:
+      app: nodejs
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: nodejs
+        version: v1
+    spec:
+      containers:
+        - name: nodejsapp
+          image: pronoob007/nodejsapp:prod-latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_HOST
+              value: "mongo-service" # Use the service name of the MongoDB deployment
+            - name: MONGO_PORT
+              value: "27017" # MongoDB default port
