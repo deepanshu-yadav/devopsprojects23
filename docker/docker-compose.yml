@@ -9,10 +9,10 @@ services:
       - ./data:/data/db
   
   nodejs-app:
-    build: nodejs
+    build: 
       context: nodejs
       args:
-          STATE: PRODUCTION
+        STATE: PRODUCTION
     ports:
       - "3000:3000"
     environment:
