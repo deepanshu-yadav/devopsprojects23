@@ -189,4 +189,42 @@ kubectl apply -f nodejsapp-deploy.yaml -n node-mongo-istio
 
 kubectl apply -f mongo-service.yaml -n node-mongo-istio
 kubectl apply -f node-service.yaml -n node-mongo-istio
+
+ kubectl apply -f gateway-nodejs.yaml  -n node-mongo-istio
 ```
+
+Verify that the service has been created using
+
+```
+azureuser@istio-practice:~$ kubectl -n istio-system get service istio-ingressgateway
+NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)
+                    AGE
+istio-ingressgateway   LoadBalancer   10.96.160.94   <pending>     15021:31031/TCP,80:32281/TCP,443:30942/TCP,31400:31668/TCP,15443:30901/TCP   43m
+```
+
+You can now request the following 
+
+```
+ INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+```
+Get the IP using  `MINIKUBE_IP=$(minikube ip)`
+
+Now you can do curl requests. 
+```
+azureuser@istio-practice:~$ curl http://$MINIKUBE_IP:$INGRESS_PORT
+Hello NODE API
+```
+
+You can even use the API externally. 
+
+In separate terminal run the following 
+
+```
+ kubectl -n istio-system port-forward service/istio-ingressgateway 8080:80
+```
+
+In another terminal use  `curl http://localhost:8080` . 
+
+
+
+
