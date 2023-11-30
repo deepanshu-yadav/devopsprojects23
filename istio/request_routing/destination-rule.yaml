@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: nodejs-service
+spec:
+  host: nodejs-service
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: development
+      labels:
+        version: development

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo-db
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-db
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: mongo-db
+        version: v1
+    spec:
+      containers:
+        - name: mongodb
+          image: pronoob007/mongo:latest
+          ports:
+            - containerPort: 27017
