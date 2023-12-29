@@ -225,6 +225,23 @@ In separate terminal run the following
 
 In another terminal use  `curl http://localhost:8080` . 
 
+## Canary Rollout
 
+```
+kubectl create ns node-mongo-istio
+kubectl label namespace node-mongo-istio istio-injection=enabled
+
+cd istio/request_routing
+
+kubectl apply -f mongo-deploy.yaml -n node-mongo-istio
+kubectl apply -f nodejs-dev-deploy.yaml -n node-mongo-istio
+kubectl apply -f nodejs-prod-deploy.yaml -n node-mongo-istio
+
+kubectl apply -f mongo-service.yaml -n node-mongo-istio
+kubectl apply -f nodejs-service.yaml -n node-mongo-istio
+
+kubectl apply -f virtual-service.yaml  -n node-mongo-istio
+kubectl apply -f destination-rule.yaml -n node-mongo-istio
+```
 
 
