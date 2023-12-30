@@ -19,7 +19,7 @@ metadata:
   name: nodejs-service
 spec:
   hosts:
-    - nodejs-service
+  - nodejs-service
   gateways:
   - nodejs-gateway
   http:
