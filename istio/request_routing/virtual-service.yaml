@@ -20,6 +20,8 @@ metadata:
 spec:
   hosts:
     - nodejs-service
+  gateways:
+  - nodejs-gateway
   http:
     - route:
         - destination:
