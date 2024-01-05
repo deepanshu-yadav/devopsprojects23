@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  mongodb:
+    build: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    networks:
+      - host
+  
+  nodejs-app:
+    image: pronoob007/nodejsapp:prod-latest
+    container_name: nodejsapp
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_HOST: mongodb
+      MONGO_PORT: 27017
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    networks:
+      - host
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    depends_on:
+      - nodejsapp
+    ports:
+      - "9090:9090"
+    networks:
+      - host
+    volumes:
+      - "./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3001:3000"
+    networks:
+      - host
+    volumes:
+      - ./monitoring/grafana/config.ini:/etc/grafana/grafana.ini
+      - ./monitoring/grafana/datasource.yml:/etc/grafana/provisioning/datasources/default.yml
+      - ./monitoring/grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/default.yml
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+
+networks:
+    host:
+      driver: bridge

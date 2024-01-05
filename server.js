@@ -1,4 +1,6 @@
 const express = require('express')
+const prometheus = require('prom-client');
+const metrics = require('./metrics');
 
 const Product = require('./models/productModel')
 const app = express()
@@ -19,6 +21,20 @@ STATE = config.state;
 
 app.get('/', (req, res) => {
     res.send('Hello NODE API')
+})
+
+app.get('/example', (req, res) => {
+    const start = Date.now();
+    const end = Date.now();
+  
+    metrics.httpRequestDuration.labels('GET', '/example').observe((end - start) / 1000);
+  
+    res.send('Response');
+})
+
+app.get('/metrics', (req, res) => {
+    res.set('Content-Type', prometheus.register.contentType);
+    res.end(prometheus.register.metrics());
 })
 
 app.get('/blog', (req, res) => {
