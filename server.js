@@ -1,6 +1,6 @@
 const express = require('express')
-const prometheus = require('prom-client');
 const metrics = require('./metrics');
+
 
 const Product = require('./models/productModel')
 const app = express()
@@ -17,25 +17,33 @@ console.log("Connecting to %s", conn_string)
 mongoose.set("strictQuery", false)
 STATE = config.state;
 
+// Middleware to measure HTTP request duration
+app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+      const end = Date.now();
+      const duration = (end - start) / 1000; // Convert to seconds
+      metrics.httpRequestDuration.labels(req.method, req.path).observe(duration);
+    });
+    next();
+  });
+
 //routes
 
 app.get('/', (req, res) => {
     res.send('Hello NODE API')
 })
 
-app.get('/example', (req, res) => {
-    const start = Date.now();
-    const end = Date.now();
-  
-    metrics.httpRequestDuration.labels('GET', '/example').observe((end - start) / 1000);
-  
-    res.send('Response');
-})
-
+// Expose metrics endpoint
 app.get('/metrics', (req, res) => {
-    res.set('Content-Type', prometheus.register.contentType);
-    res.end(prometheus.register.metrics());
-})
+    res.set('Content-Type', metrics.register.contentType);
+    metrics.register.metrics().then((metricsData) => {
+      res.send(metricsData);
+    }).catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
+  });
 
 app.get('/blog', (req, res) => {
     if (STATE == "DEVELOPMENT") {
