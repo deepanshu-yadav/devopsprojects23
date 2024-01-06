@@ -1,8 +1,8 @@
 # Introduction
 
-This project runs a nodejs application and uses mongodb as database. It has an API that performs the CRUD operations by interacting with database. The creates a product , updates a product, get a single and all products and deletes a product.
+This project runs a nodejs application and uses mongodb as database. It has an API that performs the CRUD operations by interacting with database. It creates a product , updates a product, get a single and all products and deletes a product.
 
-Look at the [file](models/productModels.js) to know about schema of a product.
+Look at the [file](models/productModel.js) to know about schema of a product.
 
 # Local Setup
 
