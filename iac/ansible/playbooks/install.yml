@@ -1,0 +1,59 @@
+---
+- name: Install Node.js and MongoDB
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Node.js and npm
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nodejs
+        - npm
+
+    - name: Install MongoDB
+      apt:
+        name: mongodb
+        state: present
+
+    - name: Start MongoDB service
+      service:
+        name: mongodb
+        state: started
+
+- name: Clone Node.js Application from GitHub
+  hosts: all
+  become: true
+  tasks:
+    - name: Clone the GitHub repository
+      git:
+        repo: https://github.com/deepanshu-yadav/devopsprojects23.git
+        dest: /opt/nodejs-app
+      register: git_clone
+
+    - name: Install npm dependencies
+      command: npm install
+      args:
+        chdir: /opt/nodejs-app
+
+- name: Check Health of Node.js Application
+  hosts: all
+  become: true
+  tasks:
+    - name: Check if Node.js app is running
+      shell: ps aux | grep 'node /opt/nodejs-app/server.js' | grep -v grep
+      register: node_app_status
+      failed_when: node_app_status.rc != 0
+
+    - name: Check if MongoDB is running
+      service_facts:
+      register: services
+    - assert:
+        that:
+          - "'mongodb' in services.services"
+          - "'running' in services.services.mongodb.state"
+      fail_msg: "MongoDB is not running."
