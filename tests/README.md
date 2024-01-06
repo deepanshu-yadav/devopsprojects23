@@ -1,0 +1,1 @@
+Here database connection test, server tests and scema check tests are there in dbclient.js , server.js and models.js respectively.

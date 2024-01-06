@@ -1,5 +1,9 @@
 # Introduction
 
+This project runs a nodejs application and uses mongodb as database. It has an API performs the CRUD operations by interacting with database. The creates a product , updates a product, get a single and all products and deletes a product.
+
+Look at the [file](models/productModels.js) to know about schema of a product.
+
 # Local Setup
 
 Follow the following steps if you want to run this app on your local machine.
@@ -26,6 +30,7 @@ Now go to browser and type `localhost:3000` or `localhost:3000/blog`
  
 # Running the tests
 
+Follow the [README](tests/README.md) of tests if you want to know about tests. 
 Use `npm test` to run the test.
 
 
@@ -39,85 +44,19 @@ Like this
 
 # Docker 
 
-
+For docker follow this [README.md](docker/README.md).
 
 # Kubernetes 
 
+For kubernetes follow this [README.md](kubernetes/README.md).
 
 # Vagrant and Ansible 
 
+For vagrant and ansible follow this [README.md](iac/README.md).
+
 # Istio
-
-## Pre-requisites
-Make sure the cluster is running.
-Install istio using this [link](https://istio.io/latest/docs/setup/getting-started/#install).
-
-## Simple deployment
-
-```
-kubectl create ns node-mongo-istio
-kubectl label namespace node-mongo-istio istio-injection=enabled
-
-cd istio/simple
-
-kubectl apply -f mongo-deploy.yaml -n node-mongo-istio
-kubectl apply -f nodejsapp-deploy.yaml -n node-mongo-istio
-
-kubectl apply -f mongo-service.yaml -n node-mongo-istio
-kubectl apply -f node-service.yaml -n node-mongo-istio
-
- kubectl apply -f gateway-nodejs.yaml  -n node-mongo-istio
-```
-
-Verify that the service has been created using
-
-```
-azureuser@istio-practice:~$ kubectl -n istio-system get service istio-ingressgateway
-NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)
-                    AGE
-istio-ingressgateway   LoadBalancer   10.96.160.94   <pending>     15021:31031/TCP,80:32281/TCP,443:30942/TCP,31400:31668/TCP,15443:30901/TCP   43m
-```
-
-You can now request the following 
-
-```
- INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
-```
-Get the IP using  `MINIKUBE_IP=$(minikube ip)`
-
-Now you can do curl requests. 
-```
-azureuser@istio-practice:~$ curl http://$MINIKUBE_IP:$INGRESS_PORT
-Hello NODE API
-```
-
-You can even use the API externally. 
-
-In separate terminal run the following 
-
-```
- kubectl -n istio-system port-forward service/istio-ingressgateway 8080:80
-```
-
-In another terminal use  `curl http://localhost:8080` . 
-
-## Canary Rollout
-
-```
-kubectl create ns node-mongo-istio
-kubectl label namespace node-mongo-istio istio-injection=enabled
-
-cd istio/request_routing
-
-kubectl apply -f mongo-deploy.yaml -n node-mongo-istio
-kubectl apply -f nodejs-dev-deploy.yaml -n node-mongo-istio
-kubectl apply -f nodejs-prod-deploy.yaml -n node-mongo-istio
-
-kubectl apply -f mongo-service.yaml -n node-mongo-istio
-kubectl apply -f nodejs-service.yaml -n node-mongo-istio
-
-kubectl apply -f destination-rule.yaml -n node-mongo-istio
-kubectl apply -f virtual-service.yaml  -n node-mongo-istio
-```
+For istio follow this [README.md](istio/README.md).
 
 
+# Monitoring
+For monitoring follow this [README.md](monitoring/README.md).
