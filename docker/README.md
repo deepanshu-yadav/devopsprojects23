@@ -23,3 +23,5 @@ To send a POST request run this
 ```
  curl --header "Content-Type: application/json"   --request POST   --data '{"name":"xyz","quantity":"1", "price": "20"}'   http://localhost:3000/products
 ```
+
+DockerHub portion is done in kubernetes part.

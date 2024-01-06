@@ -1,6 +1,6 @@
 To use vagrant and ansible. 
 
-First you need to install vgarant. You can install from [here](https://developer.hashicorp.com/vagrant/docs/installation) .
+First you need to install vagrant. You can install from [here](https://developer.hashicorp.com/vagrant/docs/installation) .
 Then install [virtualbox](https://www.virtualbox.org/wiki/Downloads).
 
 Now do `vagrant up`

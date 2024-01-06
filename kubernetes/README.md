@@ -40,7 +40,7 @@ Now we can push these images to DockerHub.
 
 ## Use Kubernetes 
 
-Now we can install kubernetes make sure you had run the script `./install_docker_minikube.sh`
+Now we can install kubernetes make sure you had run the script `./install_docker_minikube.sh` when you run the docker section.
 This script install minikube and kubectl.
 
 We can deploy the kubernetes application in two ways. 
