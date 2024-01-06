@@ -1,6 +1,6 @@
 ## Docker
 
-The app is run inside docker container. Howver instead of running nodejs and mongodb inside the same container they are run in separate container.  
+The app is run inside docker container. However instead of running nodejs and mongodb inside the same container they are run in separate container.  
 
 Install docker using  `./install_docker_minikube.sh` . This script is avaialable in the main directory. 
 
