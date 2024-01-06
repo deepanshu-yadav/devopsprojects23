@@ -35,7 +35,7 @@ services:
     networks:
       - host
     volumes:
-      - "./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -47,10 +47,10 @@ services:
     networks:
       - host
     volumes:
-      - ./monitoring/grafana/config.ini:/etc/grafana/grafana.ini
-      - ./monitoring/grafana/datasource.yml:/etc/grafana/provisioning/datasources/default.yml
-      - ./monitoring/grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/default.yml
-      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/config.ini:/etc/grafana/grafana.ini
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/default.yml
+      - ./grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/default.yml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
 
 networks:
     host:
