@@ -10,7 +10,7 @@ services:
     networks:
       - host
   
-  nodejs-app:
+  nodejsapp:
     image: pronoob007/nodejsapp:prod-latest
     container_name: nodejsapp
     ports:
